@@ -100,3 +100,29 @@ ggplot(dfsim2, aes(x = refr.status, y = acd, fill = refr.status)) +
         ggtitle("Anterior chamber depth distributions values in mm") +
         coord_flip() +
         my_theme
+
+#### Code for the following post
+ggplot(df2, aes(x = group, y = acd, group = 1, color = refr.status, ymin = lower, ymax = upper)) +
+        geom_line(size = 1) +
+        geom_pointrange(size = 0.7) +
+        geom_errorbar(size = 1, width = 0.2) +
+        scale_color_brewer(palette = "Set1") +
+        facet_grid(refr.status ~ sex) +
+        xlab("Age") + ylab("Axial length") +
+        ggtitle("Mean axial length in mm by sex and age\nwith 95% confidence interval for the mean") +
+        my_theme +
+        theme(panel.grid.minor = element_line(color = "white", size = 0.5),
+              axis.title = element_text(),
+              axis.title.y = element_text(vjust = 1.5))
+
+ggplot(dfsim2, aes(x = acd)) +
+        geom_vline(xintercept = 3, linetype = "dashed", color = "grey") +
+        geom_histogram(binwidth = 0.1, fill = "dodgerblue3", color = "dodgerblue4") +
+        facet_grid(refr.status + sex ~ group) +
+        ggtitle("Anterior chamber depth distributions values in mm") +
+        scale_x_continuous(breaks= seq(1.6, 4, 0.4), limits = c(1.6, 4)) +
+        xlab("ACD") + ylab("Count") +
+        my_theme +
+        theme(panel.grid.minor = element_blank(),
+              axis.title = element_text(),
+              axis.title.y = element_text(vjust = 1.5))
